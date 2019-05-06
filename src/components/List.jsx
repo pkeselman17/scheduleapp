@@ -2,12 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {
-    return {articles: state.articles};
+    return {event: state.events};
 }
 
-const ConnectedList = ({articles}) => (
+const ConnectedList = ({events}) => (
     <ul className="list-group list-group-flush">
-        {articles.map(el => (
+        {events.map(el => (
             <li className="list-group-item" key={el.id}>
                 {el.title}
             </li>

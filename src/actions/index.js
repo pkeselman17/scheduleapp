@@ -1,9 +1,22 @@
-import { ADD_ARTICLE, FOUND_BAD_WORD } from "../constants/action-types";
+import { ADD_ARTICLE, NEXT_MONTH, LAST_MONTH, LAST_YEAR, NEXT_YEAR } from "../constants/action-types";
 
 export function addArticle(payload) {
   return { type: ADD_ARTICLE, payload };
 }
 
-export function foundBadWord(payload) {
-  return { type: FOUND_BAD_WORD, payload };
+
+export function nextMonth(payload) {
+  return { type: NEXT_MONTH, payload};
+}
+
+export function lastMonth(payload) {
+  return { type: LAST_MONTH, payload}
+}
+
+export function changeToLastYear(payload) {
+  return { type: LAST_YEAR, payload}
+}
+
+export function changeToNextYear(payload) {
+  return { type: NEXT_YEAR, payload}
 }
