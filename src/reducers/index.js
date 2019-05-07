@@ -1,10 +1,11 @@
-import {ADD_ARTICLE, FOUND_BAD_WORD, NEXT_MONTH, LAST_MONTH, LAST_YEAR, NEXT_YEAR} from "../constants/action-types";
+import {ADD_ARTICLE, NEXT_MONTH, LAST_MONTH, LAST_YEAR, NEXT_YEAR, TOGGLE_MODAL} from "../constants/action-types";
 
 const initialState = {
     year: new Date().getFullYear(),
     month: new Date().getMonth(),
     day: new Date().getDate(),
     events: [],
+    isModalOpen: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -43,6 +44,13 @@ function rootReducer(state = initialState, action) {
             ...state,
             month: 0,
             year: state.year + 1
+        }
+    }
+
+    if (action.type === TOGGLE_MODAL) {
+        return {
+            ...state,
+            isModalOpen: !state.isModalOpen
         }
     }
 

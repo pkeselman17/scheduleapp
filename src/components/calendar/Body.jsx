@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import uuidv1 from 'uuid';
 import { nextMonth, lastMonth } from "../../actions/index";
-import MONTHS from './constants';
+import { MONTHS } from './constants';
 import Day from "./Day";
+import Plan from '../schedule/Plan';
 
 const mapStateToProps = state => {
     return {
@@ -89,6 +90,7 @@ class CalendarBody extends Component {
                         {this.createCalendar()}
                     </tbody>
                 </table>
+                <Plan />
             </div>
         )
     }

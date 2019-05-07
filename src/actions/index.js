@@ -1,4 +1,4 @@
-import { ADD_ARTICLE, NEXT_MONTH, LAST_MONTH, LAST_YEAR, NEXT_YEAR } from "../constants/action-types";
+import { ADD_ARTICLE, NEXT_MONTH, LAST_MONTH, LAST_YEAR, NEXT_YEAR, TOGGLE_MODAL } from "../constants/action-types";
 
 export function addArticle(payload) {
   return { type: ADD_ARTICLE, payload };
@@ -19,4 +19,8 @@ export function changeToLastYear(payload) {
 
 export function changeToNextYear(payload) {
   return { type: NEXT_YEAR, payload}
+}
+
+export function toggleModal(payload) {
+  return { type: TOGGLE_MODAL, payload}
 }
