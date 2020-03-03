@@ -1,0 +1,5 @@
+{
+    "CleanCSS.options": {
+        "format": "beautify",
+    }
+}
