@@ -2,9 +2,9 @@ import { Request, Response, Router } from 'express';
 import { BAD_REQUEST, CREATED, OK } from 'http-status-codes';
 import { ParamsDictionary } from 'express-serve-static-core';
 
-import UserDao from '@daos/User/UserDao.mock';
-import logger from '@shared/Logger';
-import { paramMissingError } from '@shared/constants';
+import UserDao from '../daos/User/UserDao.mock';
+import logger from '../shared/Logger';
+import { paramMissingError } from '../shared/constants';
 
 // Init shared
 const router = Router();
