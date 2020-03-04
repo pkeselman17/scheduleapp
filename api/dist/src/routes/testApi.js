@@ -6,4 +6,4 @@ router.get("/", (req, res, next) => {
     res.send("API WORKING!");
 });
 exports.default = router;
-//# sourceMappingURL=testApi.js.map
+//# sourceMappingURL=testAPI.js.map

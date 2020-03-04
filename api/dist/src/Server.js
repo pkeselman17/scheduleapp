@@ -7,6 +7,8 @@ const morgan_1 = tslib_1.__importDefault(require("morgan"));
 const path_1 = tslib_1.__importDefault(require("path"));
 const routes_1 = tslib_1.__importDefault(require("./routes"));
 const app = express_1.default();
+const cors = require("cors");
+app.use(cors());
 app.use(morgan_1.default('dev'));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
