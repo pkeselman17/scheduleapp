@@ -1,0 +1,22 @@
+{
+  "name": "scheduleapp",
+  "version": "1.0.0",
+  "description": "Schedule Application",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pkeselman17/scheduleapp.git"
+  },
+  "author": "Phil Keselman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pkeselman17/scheduleapp/issues"
+  },
+  "homepage": "https://github.com/pkeselman17/scheduleapp#readme",
+  "dependencies": {
+    "gulp": "^4.0.2"
+  }
+}

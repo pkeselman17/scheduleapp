@@ -12,7 +12,7 @@ const options = command_line_args_1.default([
     },
 ]);
 const result2 = dotenv_1.default.config({
-    path: `./env/${options.env}.env`,
+    path: __dirname + `/./../env/${options.env}.env`,
 });
 if (result2.error) {
     throw result2.error;
