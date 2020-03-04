@@ -1,0 +1,1 @@
+{"version":3,"file":"testApi.js","sourceRoot":"","sources":["../../../src/routes/testApi.ts"],"names":[],"mappings":";;AAAA,qCAAiC;AAEjC,MAAM,MAAM,GAAG,gBAAM,EAAE,CAAC;AAExB,MAAM,CAAC,GAAG,CAAC,GAAG,EAAE,CAAC,GAAG,EAAE,GAAG,EAAE,IAAI,EAAE,EAAE;IAC/B,GAAG,CAAC,IAAI,CAAC,cAAc,CAAC,CAAC;AAC7B,CAAC,CAAC,CAAC;AAEH,kBAAe,MAAM,CAAC"}
