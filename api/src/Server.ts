@@ -7,10 +7,18 @@ import BaseRouter from './routes';
 
 // Init express
 const app = express();
-const cors = require("cors");
+const cors = require('cors');
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash');
+const bodyParser = require('body-parser');
 
 // Add middleware/settings/routes to express.
 app.use(cors());
+app.use(session());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
