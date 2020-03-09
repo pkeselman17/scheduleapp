@@ -28,4 +28,4 @@
 .vscode
 
 **/dist
-**/*.env
+**/env

@@ -1,60 +1,54 @@
 import { IUser } from '../../entities/User';
+import { getRandomGuid } from '../../shared/functions';
+import {query} from '../../../database/db';
 
 
 export interface IUserDao {
-    getOne: (email: string) => Promise<IUser | null>;
+    getOne: (id: string) => Promise<IUser | null>;
+    getByEmail: (email: string) => Promise<IUser | null>;
     getAll: () => Promise<IUser[]>;
     add: (user: IUser) => Promise<void>;
     update: (user: IUser) => Promise<void>;
-    delete: (id: number) => Promise<void>;
+    delete: (id: string) => Promise<void>;
 }
 
 class UserDao implements IUserDao {
 
 
-    /**
-     * @param email
-     */
-    public async getOne(email: string): Promise<IUser | null> {
+    public async getOne(id: string): Promise<IUser | null> {
         // TODO
         return [] as any;
     }
 
+    public async getByEmail(email: string): Promise<IUser | null> {
+        return [] as any;
+    }
 
-    /**
-     *
-     */
     public async getAll(): Promise<IUser[]> {
         // TODO
         return [] as any;
     }
 
-
-    /**
-     *
-     * @param user
-     */
     public async add(user: IUser): Promise<void> {
-        // TODO
-        return {} as any;
+        try {
+            
+            const queryObj = {
+                text: "INSERT INTO Users("
+            }
+            query("INSERT INTO Users $1")
+            user.id = getRandomGuid();
+            
+        } catch (err) {
+            throw err;
+        }
     }
 
-
-    /**
-     *
-     * @param user
-     */
     public async update(user: IUser): Promise<void> {
         // TODO
         return {} as any;
     }
 
-
-    /**
-     *
-     * @param id
-     */
-    public async delete(id: number): Promise<void> {
+    public async delete(id: string): Promise<void> {
         // TODO
         return {} as any;
     }

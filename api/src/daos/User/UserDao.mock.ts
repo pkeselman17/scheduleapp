@@ -1,5 +1,5 @@
 import { IUser } from '../../entities/User';
-import { getRandomInt } from '../../shared/functions';
+import { getRandomGuid } from '../../shared/functions';
 import { MockDaoMock } from '../MockDb/MockDao.mock';
 import { IUserDao } from './UserDao';
 
@@ -35,7 +35,7 @@ class UserDao extends MockDaoMock implements IUserDao {
     public async add(user: IUser): Promise<void> {
         try {
             const db = await super.openDb();
-            user.id = getRandomInt();
+            user.id = getRandomGuid();
             db.users.push(user);
             await super.saveDb(db);
         } catch (err) {

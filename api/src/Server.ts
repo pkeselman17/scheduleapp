@@ -3,6 +3,10 @@ import express from 'express';
 import { Request, Response } from 'express';
 import logger from 'morgan';
 import path from 'path';
+
+import './middleware/passport';
+
+//Routes
 import BaseRouter from './routes';
 
 // Init express
