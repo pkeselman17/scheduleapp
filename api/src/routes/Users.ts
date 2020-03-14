@@ -11,38 +11,38 @@ import auth from './auth';
 const router = Router();
 const userDao = new UserDao();
 
-
-/******************************************************************************
- *                      Get All Users - "GET /api/users/all"
- ******************************************************************************/
-
 router.post('/', auth.optional, (req, res, next) => {
-    const { body: { user } } = req;
-  
-    if(!user.email) {
-      return res.status(422).json({
-        errors: {
-          email: 'is required',
-        },
-      });
-    }
-  
-    if(!user.password) {
-      return res.status(422).json({
-        errors: {
-          password: 'is required',
-        },
-      });
-    }
-  
-    userDao.add(new User(user))
+  const { body: { user } } = req;
 
-    return finalUser.save()
-      .then(() => res.json({ user: finalUser.toAuthJSON() }));
+  if (!user.email) {
+    return res.status(422).json({
+      errors: {
+        email: 'is required',
+      },
+    });
+  }
+
+  if (!user.password) {
+    return res.status(422).json({
+      errors: {
+        password: 'is required',
+      },
+    });
+  }
+
+  const newUser = new User(user);
+  newUser.SetPassword(user.password, (err, hash) => {
+    if (err) { throw err; }
+    else {
+      newUser.passwordHash = hash;
+      userDao.add(newUser)
+      .then(() => res.json({ user: newUser.ToAuthJSON() }))
+    }
   });
-
-router.post('/login', auth.optional(req, res, next) => {
-    //finish this
 });
+
+// router.post('/login', auth.optional(req, res, next) => {
+
+// });
 
 export default router;

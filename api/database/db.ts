@@ -9,7 +9,7 @@ const dbConfig: PoolConfig = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT !== undefined ?  parseInt(process.env.DB_PORT) : undefined,
     max: 20,
-    idleTimeoutMillis: 30000,
+    idleTimeoutMillis: 0,
     connectionTimeoutMillis: 2000,
 };
 
@@ -18,6 +18,6 @@ pool.on('error', (err) => {
     logger.error("idle client error", err.message, err.stack)
 });
 
-export function query(text: string, params: any, callback: any) {
+export function query(text: string, params:any, callback: any) {
     return pool.query(text, params, callback);
 }

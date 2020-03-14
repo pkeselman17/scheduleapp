@@ -1,6 +1,6 @@
 import { IUser } from '../../entities/User';
 import { getRandomGuid } from '../../shared/functions';
-import {query} from '../../../database/db';
+import { query } from '../../../database/db';
 
 
 export interface IUserDao {
@@ -31,13 +31,17 @@ class UserDao implements IUserDao {
 
     public async add(user: IUser): Promise<void> {
         try {
-            
-            const queryObj = {
-                text: "INSERT INTO Users("
-            }
-            query("INSERT INTO Users $1")
-            user.id = getRandomGuid();
-            
+            const text = "INSERT INTO Users(firstname, lastname, password_hash, username, email, datecreated) " +
+                "VALUES($1, $2, $3, $4, $5, $6)";
+            const params = [user.firstName, user.lastName, user.passwordHash, user.userName, user.email, new Date()]
+
+            query(text, params, (err: Error, res: any) => {
+                if(err) {return err;}
+                else {
+                    return res;
+                }
+            })
+
         } catch (err) {
             throw err;
         }
