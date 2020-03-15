@@ -1,6 +1,4 @@
-import { Request, Response, Router } from 'express';
-import { BAD_REQUEST, CREATED, OK } from 'http-status-codes';
-import { ParamsDictionary } from 'express-serve-static-core';
+import { Router } from 'express';
 
 import User from '../entities/User';
 import UserDao from '../daos/User/UserDao';
@@ -12,7 +10,7 @@ import passport from 'passport';
 const router = Router();
 const userDao = new UserDao();
 
-router.post('/', auth.optional, (req, res, next) => {
+router.post('/', auth.optional, (req, res) => {
   const { body: { user } } = req;
 
   if (!user.email) {
@@ -37,13 +35,13 @@ router.post('/', auth.optional, (req, res, next) => {
     else {
       newUser.passwordHash = hash;
       userDao.add(newUser)
-      .then(() => res.json({ user: newUser.ToAuthJSON() }))
+        .then(() => res.json({ user: newUser.ToAuthJSON() }))
     }
   });
 });
 
 router.post('/login', auth.optional, (req, res, next) => {
-  const { body: {email, password} } = req;
+  const { body: { email, password } } = req;
 
   if (!email) {
     return res.status(422).json({
@@ -60,22 +58,45 @@ router.post('/login', auth.optional, (req, res, next) => {
       },
     });
   }
-  
-  return passport.authenticate('local', {session: false}, (err, passportUser, info) =>{
+
+  return passport.authenticate('local', { session: false }, (err, passportUser) => {
     if (err) {
       return next(err);
     }
 
     if (passportUser) {
-      const user = passportUser;
-      user.token = passportUser.generateJWT();
+      const user = new User(passportUser);
+      const token = passportUser.generateJWT();
 
-      return res.json({user: user.ToAuthJSON()});
+      res.cookie('jwt', token);
+
+      return res.json({ user: user.ToAuthJSON() });
     }
 
     return res.status(400);
   })(req, res, next);
-
 });
+
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const { body: { id } } = req;
+
+  return userDao.getOne(id)
+    .then((user) => {
+      if (!user) {
+        return res.sendStatus(400);
+      }
+
+      return res.json({ user: new User(user).ToAuthJSON() });
+    });
+});
+
+router.get('/logout', auth.required, (req, res) => {
+  const { } = req;
+
+  req.logout();
+  req.session?.destroy((err) => {
+    res.json({ body: 'logged out!' });
+  })
+})
 
 export default router;

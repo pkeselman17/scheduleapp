@@ -1,10 +1,12 @@
 import passport from 'passport';;
 import passportLocal from 'passport-local';
+import passportJWT from 'passport-jwt'
 import UserDao from '../daos/User/UserDao';
 import { IUser } from '../entities/User';
 import logger from '../shared/Logger';
 
 const LocalStrategy = passportLocal.Strategy;
+const JWTStrategy = passportJWT.Strategy;
 const userDao = new UserDao();
 
 passport.serializeUser((user: IUser, done) => {
@@ -37,4 +39,15 @@ passport.use(new LocalStrategy({
         }
         return done(undefined, false, { message: "Invalid Email or Password." })
     });
+}));
+
+passport.use(new JWTStrategy({
+    jwtFromRequest: req => req.cookies.jwt,
+    secretOrKey: process.env.JWT_SECRET
+}, (jwtPayload, done) => {
+    if (jwtPayload.exp >= Date.now()) {
+        return done('Token expired.');
+    }
+
+    return done(null, jwtPayload);
 }));

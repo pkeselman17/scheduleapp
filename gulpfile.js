@@ -15,7 +15,7 @@ function compile(done) {
 };
 
 function move() {
-  return gulp.src(['./api/src/env/**/*', "./api/node_modules/**/*"], {
+  return gulp.src(["./api/node_modules/**/*"], {
     base: "./api/"
   })
     .pipe(gulp.dest('./api/dist/'));

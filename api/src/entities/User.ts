@@ -79,9 +79,8 @@ class User implements IUser {
               email: this.email,
               id: this.id,
               exp: expirationDate.getTime() / 1000,
-          }, process.env.JWT_SECRET != undefined ? process.env.JWT_SECRET : '');
+          }, process.env.JWT_SECRET !== undefined ? process.env.JWT_SECRET : '');
       }
-      
 }
 
 export default User;

@@ -27,6 +27,7 @@ class UserDao implements IUserDao {
                         user.firstName = row.firstname,
                         user.lastName = row.lastname,
                         user.userName = row.username,
+                        user.email = row.email,
                         user.createdDate = row.datecreated,
                         user.passwordHash = row.password_hash
 

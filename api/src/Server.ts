@@ -1,4 +1,4 @@
-import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser'
 import express, { Request, Response }  from 'express';
 import logger from 'morgan';
 import passport from 'passport';
@@ -11,23 +11,23 @@ import BaseRouter from './routes';
 
 // Init express
 const app = express();
-const cors = require('cors');
-const session = require('express-session');
-const flash = require('connect-flash');
-const bodyParser = require('body-parser');
+import cors from 'cors';
+import session from 'express-session';
+import flash from 'connect-flash';
+import bodyParser from 'body-parser';
 
 // Add middleware/settings/routes to express.
 app.use(cors());
-app.use(session({ secret: process.env.SESSION_SECRET, cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
+app.use(session({ secret: process.env.SESSION_SECRET ?? '', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cookieParser());
 app.use(flash());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser());
 app.use('/', BaseRouter);
 
 /**
