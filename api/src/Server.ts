@@ -1,7 +1,7 @@
 import cookieParser from 'cookie-parser';
-import express from 'express';
-import { Request, Response } from 'express';
+import express, { Request, Response }  from 'express';
 import logger from 'morgan';
+import passport from 'passport';
 import path from 'path';
 
 import './middleware/passport';
@@ -13,7 +13,6 @@ import BaseRouter from './routes';
 const app = express();
 const cors = require('cors');
 const session = require('express-session');
-const passport = require('passport');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 
@@ -22,8 +21,8 @@ app.use(cors());
 app.use(session({ secret: process.env.SESSION_SECRET, cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
 app.use(logger('dev'));
 app.use(express.json());

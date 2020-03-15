@@ -6,6 +6,7 @@ import User from '../entities/User';
 import UserDao from '../daos/User/UserDao';
 
 import auth from './auth';
+import passport from 'passport';
 
 // Init shared
 const router = Router();
@@ -41,8 +42,40 @@ router.post('/', auth.optional, (req, res, next) => {
   });
 });
 
-// router.post('/login', auth.optional(req, res, next) => {
+router.post('/login', auth.optional, (req, res, next) => {
+  const { body: {email, password} } = req;
 
-// });
+  if (!email) {
+    return res.status(422).json({
+      errors: {
+        email: 'is required',
+      },
+    });
+  }
+
+  if (!password) {
+    return res.status(422).json({
+      errors: {
+        password: 'is required',
+      },
+    });
+  }
+  
+  return passport.authenticate('local', {session: false}, (err, passportUser, info) =>{
+    if (err) {
+      return next(err);
+    }
+
+    if (passportUser) {
+      const user = passportUser;
+      user.token = passportUser.generateJWT();
+
+      return res.json({user: user.ToAuthJSON()});
+    }
+
+    return res.status(400);
+  })(req, res, next);
+
+});
 
 export default router;

@@ -18,6 +18,6 @@ pool.on('error', (err) => {
     logger.error("idle client error", err.message, err.stack)
 });
 
-export function query(text: string, params:any, callback: any) {
-    return pool.query(text, params, callback);
+export function query(text: string, params:any) {
+    return pool.query(text, params);
 }
